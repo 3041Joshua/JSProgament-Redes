@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JSProgament-Redes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+  <video autoplay muted loop id="video-fondo" playsinline>
+    <source src="BANNER LARGO .jpg" type="video/mp4" />
+    Tu navegador no soporta video HTML5.
+  </video>
+
+  <div class="profile-pic" id="profile-click">
+    <img src="LOGO BASE.jpg" alt="Tu foto de perfil" />
+  </div>
+
+  <h1>JSProgament</h1>
+  <p>Sígueme en mis redes sociales:</p>
+
+  <div class="social-links">
+    <a class="social-button instagram" href="https://www.instagram.com/jsprogament_/" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+      Instagram
+    </a>
+
+    <a class="social-button tiktok" href="https://www.tiktok.com/@jsprogament" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" />
+      TikTok
+    </a>
+
+    <a class="social-button youtube" href="https://www.youtube.com/@JS_Progament" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" />
+      YouTube
+    </a>
+
+    <a class="social-button facebook" href="https://www.facebook.com/profile.php?id=61579142553594" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook" />
+      Facebook
+    </a>
+  </div>
+
+  <footer>
+    © 2025 JSProgament — Todos los derechos reservados
+  </footer>
+
+  <!-- Modal QR -->
+  <div id="qr-modal">
+    <div id="qr-content">
+      <button id="close-btn">&times;</button>
+      <div id="qrcode"></div>
+      <button onclick="downloadQR()">Descargar QR</button>
+      <button onclick="shareWhatsApp()">Compartir WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const profile = document.getElementById("profile-click");
+    const qrModal = document.getElementById("qr-modal");
+    const closeBtn = document.getElementById("close-btn");
+    const currentURL = window.location.href;
+    let qrGenerated = false;
+
+    profile.addEventListener("click", () => {
+      qrModal.style.display = "flex";
+      if (!qrGenerated) {
+        new QRCode(document.getElementById("qrcode"), {
+          text: currentURL,
+          width: 160,
+          height: 160
+        });
+        qrGenerated = true;
+      }
+    });
+
+    closeBtn.addEventListener("click", () => {
+      qrModal.style.display = "none";
+    });
+
+    function downloadQR() {
+      const canvas = document.querySelector("#qrcode canvas");
+      const image = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = image;
+      a.download = "qr-code.png";
+      a.click();
+    }
+
+    function shareWhatsApp() {
+      const message = encodeURIComponent("¡Mira esto! " + currentURL);
+      const url = `https://api.whatsapp.com/send?text=${message}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
