@@ -125,7 +125,7 @@
     }
 
     #qr-content {
-      background-color: #000000;
+      background-color: #ffffff;
       border-radius: 12px;
       padding: 2rem;
       text-align: center;
@@ -160,4 +160,5 @@
       border: none;
       color: #fff;
       cursor: pointer;
+
     }
